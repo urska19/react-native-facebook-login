@@ -1,7 +1,5 @@
-import React, {
-  PropTypes,
-  Component
-} from 'react';
+import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 
 import {
   View,
@@ -69,7 +67,7 @@ class FBLogin extends Component {
     isLoggedIn: PropTypes.bool,
     login: PropTypes.func,
     logout: PropTypes.func,
-    props: PropTypes.object
+    props: PropTypes.shape({})
   }
 
   getChildContext () {
