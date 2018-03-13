@@ -12,10 +12,11 @@ var {
 } = ReactNative;
 
 var FBLoginManager = require('NativeModules').FBLoginManager;
+const viewPropTypes = ViewPropTypes || View.propTypes;
 
 var FBLoginMock = React.createClass({
   propTypes: {
-    style: View.propTypes.style,
+    style: viewPropTypes.style,
     onPress: PropTypes.func,
     onLogin: PropTypes.func,
     onLogout: PropTypes.func,
