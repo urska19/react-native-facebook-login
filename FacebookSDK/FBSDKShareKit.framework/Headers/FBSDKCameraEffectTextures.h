@@ -16,25 +16,28 @@
 // IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN
 // CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
-#import <Foundation/Foundation.h>
+#import <UIKit/UIKit.h>
 
-#import <FBSDKCoreKit/FBSDKGraphRequestConnection.h>
+#import <FBSDKCoreKit/FBSDKCopying.h>
 
-// Internal only class to facilitate FBSDKGraphRequest processing, specifically
-// associating FBSDKGraphRequest and FBSDKGraphRequestHandler instances and necessary
-// data for retry processing.
-@interface FBSDKGraphRequestMetadata : NSObject
+/**
+ * A container of textures for a camera effect.
+ * A texture for a camera effect is an UIImages identified by a NSString key.
+ */
+@interface FBSDKCameraEffectTextures : NSObject <FBSDKCopying, NSSecureCoding>
 
-@property (nonatomic, retain) FBSDKGraphRequest *request;
-@property (nonatomic, copy) FBSDKGraphRequestHandler completionHandler;
-@property (nonatomic, copy) NSDictionary *batchParameters;
+/**
+ Sets the image for a texture key.
+ @param image The UIImage for the texture
+ @param key The key for the texture
+ */
+- (void)setImage:(UIImage *)image forKey:(NSString *)key;
 
-- (instancetype)initWithRequest:(FBSDKGraphRequest *)request
-              completionHandler:(FBSDKGraphRequestHandler)handler
-                batchParameters:(NSDictionary *)batchParameters
-NS_DESIGNATED_INITIALIZER;
+/**
+ Gets the image for a texture key.
+ @param key The key for the texture
+ @return The texture UIImage or nil
+ */
+- (UIImage *)imageForKey:(NSString *)key;
 
-- (void)invokeCompletionHandlerForConnection:(FBSDKGraphRequestConnection *)connection
-                                 withResults:(id)results
-                                       error:(NSError *)error;
 @end

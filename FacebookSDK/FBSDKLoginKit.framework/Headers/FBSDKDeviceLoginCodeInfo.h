@@ -17,31 +17,46 @@
 // CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
 #import <Foundation/Foundation.h>
-#import <UIKit/UIImage.h>
 
-@class FBSDKGraphRequestDataAttachment;
-@class FBSDKLogger;
+NS_ASSUME_NONNULL_BEGIN
 
-@interface FBSDKGraphRequestBody : NSObject
+/*!
+ @abstract Describes the initial response when starting the device login flow.
+ @discussion This is used by `FBSDKDeviceLoginManager`.
+ */
+@interface FBSDKDeviceLoginCodeInfo : NSObject
 
-@property (nonatomic, retain, readonly) NSData *data;
+/*!
+ @abstract There is no public initializer.
+ */
+- (instancetype)init NS_UNAVAILABLE;
++ (instancetype)new NS_UNAVAILABLE;
 
-- (void)appendWithKey:(NSString *)key
-            formValue:(NSString *)value
-               logger:(FBSDKLogger *)logger;
+/*!
+ @abstract the unique id for this login flow.
+*/
+@property (nonatomic, copy, readonly) NSString *identifier;
 
-- (void)appendWithKey:(NSString *)key
-           imageValue:(UIImage *)image
-               logger:(FBSDKLogger *)logger;
+/*!
+ @abstract the short "user_code" that should be presented to the user.
+*/
+@property (nonatomic, copy, readonly) NSString *loginCode;
 
-- (void)appendWithKey:(NSString *)key
-            dataValue:(NSData *)data
-               logger:(FBSDKLogger *)logger;
+/*!
+ @abstract the verification URL.
+*/
+@property (nonatomic, copy, readonly) NSURL *verificationURL;
 
-- (void)appendWithKey:(NSString *)key
-  dataAttachmentValue:(FBSDKGraphRequestDataAttachment *)dataAttachment
-               logger:(FBSDKLogger *)logger;
+/*!
+ @abstract the expiration date.
+*/
+@property (nonatomic, copy, readonly) NSDate *expirationDate;
 
-+ (NSString *)mimeContentType;
+/*!
+ @abstract the polling interval
+*/
+@property (nonatomic, assign, readonly) NSUInteger pollingInterval;
 
 @end
+
+NS_ASSUME_NONNULL_END

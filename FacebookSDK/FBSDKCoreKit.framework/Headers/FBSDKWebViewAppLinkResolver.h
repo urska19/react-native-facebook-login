@@ -16,24 +16,23 @@
 // IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN
 // CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
-#import <UIKit/UIKit.h>
+#import <Foundation/Foundation.h>
 
-@protocol FBSDKWebDialogViewDelegate;
+#import "FBSDKAppLinkResolving.h"
 
-@interface FBSDKWebDialogView : UIView
+NS_ASSUME_NONNULL_BEGIN
 
-@property (nonatomic, assign) id<FBSDKWebDialogViewDelegate> delegate;
+/*!
+ A reference implementation for an App Link resolver that uses a hidden UIWebView
+ to parse the HTML containing App Link metadata.
+ */
+@interface FBSDKWebViewAppLinkResolver : NSObject <FBSDKAppLinkResolving>
 
-- (void)loadURL:(NSURL *)URL;
-- (void)stopLoading;
-
-@end
-
-@protocol FBSDKWebDialogViewDelegate <NSObject>
-
-- (void)webDialogView:(FBSDKWebDialogView *)webDialogView didCompleteWithResults:(NSDictionary *)results;
-- (void)webDialogView:(FBSDKWebDialogView *)webDialogView didFailWithError:(NSError *)error;
-- (void)webDialogViewDidCancel:(FBSDKWebDialogView *)webDialogView;
-- (void)webDialogViewDidFinishLoad:(FBSDKWebDialogView *)webDialogView;
+/*!
+ Gets the instance of a FBSDKWebViewAppLinkResolver.
+ */
++ (instancetype)sharedInstance;
 
 @end
+
+NS_ASSUME_NONNULL_END

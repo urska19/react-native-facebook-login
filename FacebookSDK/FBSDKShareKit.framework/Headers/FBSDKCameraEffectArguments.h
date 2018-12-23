@@ -16,10 +16,42 @@
 // IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN
 // CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
-#import <UIKit/UIKit.h>
+#import <Foundation/Foundation.h>
 
-#import "FBSDKBridgeAPIProtocol.h"
+#import <FBSDKCoreKit/FBSDKCopying.h>
 
-@interface FBSDKBridgeAPIProtocolWebV1 : NSObject <FBSDKBridgeAPIProtocol>
+/**
+ * A container of arguments for a camera effect.
+ * An argument is a NSString identified by a NSString key.
+ */
+@interface FBSDKCameraEffectArguments : NSObject <FBSDKCopying, NSSecureCoding>
+
+/**
+ Sets a string argument in the container.
+ @param string The argument
+ @param key The key for the argument
+ */
+- (void)setString:(NSString *)string forKey:(NSString *)key;
+
+/**
+ Gets a string argument from the container.
+ @param key The key for the argument
+ @return The string value or nil
+ */
+- (NSString *)stringForKey:(NSString *)key;
+
+/**
+ Sets a string array argument in the container.
+ @param array The array argument
+ @param key The key for the argument
+ */
+- (void)setArray:(NSArray<NSString *> *)array forKey:(NSString *)key;
+
+/**
+ Gets an array argument from the container.
+ @param key The key for the argument
+ @return The array argument
+ */
+- (NSArray *)arrayForKey:(NSString *)key;
 
 @end

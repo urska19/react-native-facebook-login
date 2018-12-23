@@ -18,34 +18,17 @@
 
 #import <Foundation/Foundation.h>
 
-@class FBSDKURLConnection;
+#import <FBSDKCoreKit/FBSDKCopying.h>
 
-typedef void (^FBSDKURLConnectionHandler)(FBSDKURLConnection *connection,
-                                          NSError *error,
-                                          NSURLResponse *response,
-                                          NSData *responseData);
+/**
+ A base interface for Messenger share action buttons.
+ */
+@protocol FBSDKShareMessengerActionButton <FBSDKCopying, NSSecureCoding>
 
-@protocol FBSDKURLConnectionDelegate <NSObject>
-
-@optional
-
-- (void)facebookURLConnection:(FBSDKURLConnection *)connection
-              didSendBodyData:(NSInteger)bytesWritten
-            totalBytesWritten:(NSInteger)totalBytesWritten
-    totalBytesExpectedToWrite:(NSInteger)totalBytesExpectedToWrite;
-
-@end
-
-@interface FBSDKURLConnection : NSObject
-
-- (FBSDKURLConnection *)initWithRequest:(NSURLRequest *)request
-                      completionHandler:(FBSDKURLConnectionHandler)handler
-NS_DESIGNATED_INITIALIZER;
-
-@property (nonatomic, assign) id<FBSDKURLConnectionDelegate> delegate;
-
-- (void)cancel;
-- (void)start;
-- (void)setDelegateQueue:(NSOperationQueue *)queue;
+/**
+ The title displayed to the user for the button.
+ @return The title for the button.
+ */
+@property (nonatomic, copy) NSString *title;
 
 @end

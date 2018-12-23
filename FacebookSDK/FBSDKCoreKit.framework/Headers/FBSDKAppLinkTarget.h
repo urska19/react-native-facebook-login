@@ -18,27 +18,28 @@
 
 #import <Foundation/Foundation.h>
 
-#import <FBSDKCoreKit/FBSDKMacros.h>
+NS_ASSUME_NONNULL_BEGIN
 
-#import "FBSDKBridgeAPIProtocolType.h"
+/*!
+ Represents a target defined in App Link metadata, consisting of at least
+ a URL, and optionally an App Store ID and name.
+ */
+@interface FBSDKAppLinkTarget : NSObject
 
-@class FBSDKBridgeAPIRequest;
+/*! Creates a FBSDKAppLinkTarget with the given app site and target URL. */
++ (instancetype)appLinkTargetWithURL:(NSURL *)url
+                          appStoreId:(nullable NSString *)appStoreId
+                             appName:(NSString *)appName;
 
-FBSDK_EXTERN NSString *const FBSDKBridgeAPIAppIDKey;
-FBSDK_EXTERN NSString *const FBSDKBridgeAPISchemeSuffixKey;
-FBSDK_EXTERN NSString *const FBSDKBridgeAPIVersionKey;
+/*! The URL prefix for this app link target */
+@property (nonatomic, strong, readonly) NSURL *URL;
 
-@protocol FBSDKBridgeAPIProtocol <NSObject>
+/*! The app ID for the app store */
+@property (nonatomic, copy, readonly, nullable) NSString *appStoreId;
 
-- (NSURL *)requestURLWithActionID:(NSString *)actionID
-                           scheme:(NSString *)scheme
-                       methodName:(NSString *)methodName
-                    methodVersion:(NSString *)methodVersion
-                       parameters:(NSDictionary *)parameters
-                            error:(NSError *__autoreleasing *)errorRef;
-- (NSDictionary *)responseParametersForActionID:(NSString *)actionID
-                                queryParameters:(NSDictionary *)queryParameters
-                                      cancelled:(BOOL *)cancelledRef
-                                          error:(NSError *__autoreleasing *)errorRef;
+/*! The name of the app */
+@property (nonatomic, copy, readonly) NSString *appName;
 
 @end
+
+NS_ASSUME_NONNULL_END
